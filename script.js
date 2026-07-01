@@ -1,6 +1,34 @@
 (function(){
   "use strict";
 
+  /* ---------------- localStorage fallback for persistent data storage ---------------- */
+  if (!window.storage) {
+    window.storage = {
+      get: async function(key, shared) {
+        try {
+          const value = localStorage.getItem(key);
+          return value ? { value } : null;
+        } catch (e) {
+          return null;
+        }
+      },
+      set: async function(key, value, shared) {
+        try {
+          localStorage.setItem(key, value);
+        } catch (e) {
+          console.error("Could not save to localStorage:", e);
+        }
+      },
+      delete: async function(key, shared) {
+        try {
+          localStorage.removeItem(key);
+        } catch (e) {
+          console.error("Could not delete from localStorage:", e);
+        }
+      }
+    };
+  }
+
   /* ---------------- Live Google Sheets source (gviz JSONP — works even from file://) ---------------- */
   const SHEET_ID = "1gAIhAvT0c0oPIFrPKweJ6PkYFKa7kltg6P_pjd9_Igw";
   const STUDENTS_TAB = "Students";
@@ -673,7 +701,8 @@
     UNIVERSITY_KEY = findHeader(/university|institute|college/i);
     EMAIL_KEY = findHeader(/email/i);
     PHONE_KEY = findHeader(/phone|mobile|contact number/i);
-    CONTACT_KEYS = [EMAIL_KEY, PHONE_KEY].filter(Boolean);
+    // Don't include email and phone in contact display
+    CONTACT_KEYS = [];
 
     PROGRAM_KEY = findHeader(/program|department|branch|major/i);
     GRADYEAR_KEY = findHeader(/grad(uation)? ?year/i);
@@ -1016,12 +1045,6 @@
         <div class="field-group">
           <h3>Links</h3>
           <div class="link-buttons">${linkButtons}</div>
-        </div>` : ""}
-
-        ${validationChips ? `
-        <div class="field-group">
-          <h3>Validation Insights</h3>
-          <div class="tag-row">${validationChips}</div>
         </div>` : ""}
 
         ${a.summary ? `
