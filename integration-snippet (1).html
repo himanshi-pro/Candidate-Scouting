@@ -1,0 +1,78 @@
+<!--
+=====================================================================
+INTEGRATION SNIPPET — add Shortlist write-back to your existing dashboard
+=====================================================================
+
+STEP 1: Deploy AppsScript-Code.gs (see comments in that file), then
+paste the resulting Web App URL below.
+-->
+
+<script>
+// ---- 1. CONFIG: paste your deployed Apps Script Web App URL here ----
+var SHORTLIST_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyjf-Rv0wIz4zVJRce5ahhK3Zdm-7CGnt5maEDn4osHxdaPuCQ37u0h5btz7ouhknKT/exec';
+
+// Tracks which candidates are currently shortlisted (by email), so the
+// UI can reflect state without re-fetching the sheet every time.
+var shortlistedState = {};
+
+/**
+ * Sends a shortlist / un-shortlist action to the Apps Script Web App,
+ * which writes it back into the Google Sheet.
+ */
+function setShortlisted(student, shortlisted) {
+  if (!student.email) {
+    console.warn('Cannot shortlist: candidate has no email on file.');
+    return Promise.reject(new Error('Missing email'));
+  }
+
+  return fetch(SHORTLIST_WEBAPP_URL, {
+    method: 'POST',
+    // Apps Script Web Apps don't support custom Content-Type headers from
+    // cross-origin requests without extra config, so 'text/plain' + manual
+    // JSON.stringify is the reliable pattern here.
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ email: student.email, shortlisted: shortlisted })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(result) {
+    if (!result.ok) throw new Error(result.error || 'Unknown error writing to sheet');
+    shortlistedState[student.email] = shortlisted;
+    return result;
+  });
+}
+</script>
+
+<!--
+STEP 2: Add a "Shortlist" button inside openPanel()'s HTML, e.g. right
+after `.panel-links`. This is a drop-in addition to the existing
+openPanel() function in your dashboard — insert the line marked below.
+-->
+
+<!--
+  (linksHtml ? '<div class="panel-links">'+linksHtml+'</div>' : '') +
+
+  // >>> ADD THIS LINE <<<
+  '<div class="panel-links"><button id="shortlistBtn" class="link-pill" style="cursor:pointer;border:1px solid var(--star-dim);color:var(--star);">'+
+    (shortlistedState[student.email] ? '&#9733; Shortlisted' : '&#9734; Shortlist this candidate') +
+  '</button></div>' +
+-->
+
+<script>
+// STEP 3: after panelEl.innerHTML is set inside openPanel(student), wire up the button:
+//
+// var btn = document.getElementById('shortlistBtn');
+// btn.addEventListener('click', function(){
+//   var next = !shortlistedState[student.email];
+//   btn.disabled = true;
+//   btn.textContent = 'Saving...';
+//   setShortlisted(student, next)
+//     .then(function(){
+//       btn.innerHTML = next ? '&#9733; Shortlisted' : '&#9734; Shortlist this candidate';
+//     })
+//     .catch(function(err){
+//       alert('Could not update sheet: ' + err.message);
+//       btn.innerHTML = shortlistedState[student.email] ? '&#9733; Shortlisted' : '&#9734; Shortlist this candidate';
+//     })
+//     .finally(function(){ btn.disabled = false; });
+// });
+</script>

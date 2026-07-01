@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MatchPoint by Polaris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <p>FETCHING LIVE DATA…</p>
+</div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <h1 class="brand-title">MatchPoint <span class="brand-accent">by Polaris</span></h1>
+    </div>
+    <p class="company-greeting" id="company-greeting"></p>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="section-heading" style="margin-top:8px;">
+    <h2>Candidates</h2>
+    <span class="sub" id="student-count-sub"></span>
+  </div>
+  <div class="toolbar">
+    <input id="search-input" class="search-input" type="text" placeholder="Search by name, university, or skill…">
+    <select id="sort-select" class="sort-select">
+      <option value="name">Sort: Name (A–Z)</option>
+      <option value="shortlists">Sort: Most shortlisted</option>
+      <option value="university">Sort: University</option>
+    </select>
+  </div>
+  <div class="table-wrap">
+    <table class="shortlist-table" id="shortlist-table"></table>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="dossier" id="dossier"></div>
+</div>
+
+<div class="identity-overlay hidden" id="identity-overlay">
+  <div class="identity-card">
+    <p class="identity-eyebrow">MatchPoint by Polaris</p>
+    <h2>Who are you?</h2>
+    <p class="identity-sub">Select your company to see and manage its shortlist.</p>
+    <div class="identity-grid" id="identity-grid"></div>
+  </div>
+</div>
+
+<div class="identity-overlay hidden" id="howto-overlay">
+  <div class="identity-card">
+    <p class="identity-eyebrow">Quick guide</p>
+    <h2>How this works</h2>
+    <ul class="howto-list">
+      <li><span class="howto-icon">👤</span><span><strong>Click a student's name</strong> to open their full profile — links, skills, and everything else on file.</span></li>
+      <li><span class="howto-icon">☐</span><span><strong>Click an empty box</strong> in your company's column to shortlist that student.</span></li>
+      <li><span class="howto-icon">✓</span><span><strong>Click a checked box</strong> in your column to remove that student from your shortlist.</span></li>
+    </ul>
+    <button class="identity-btn" id="howto-close" style="width:100%; justify-content:center;">Got it</button>
+  </div>
+</div>
+
+<button class="help-fab" id="help-fab" title="How to use this dashboard">?</button>
+
+<div class="welcome-toast" id="welcome-toast">
+  <span class="wave">👋</span>
+  <span id="welcome-toast-text"></span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

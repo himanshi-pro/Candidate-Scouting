@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate Dossier — Avishi Agrawal</title>
+  <style>
+    :root {
+      --navy: #12172B;
+      --amber: #E8A33D;
+      --amber-dark: #C97F1C;
+      --paper: #F7F5EF;
+      --paper-dim: #EDEAE0;
+      --ink: #1D2233;
+      --ink-soft: #5B6072;
+      --line: #DEDACB;
+      --radius: 16px;
+      --shadow: 0 18px 40px -18px rgba(18,23,43,0.35);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, sans-serif; background: #f2efe4; color: var(--ink); }
+    .page { max-width: 920px; margin: 32px auto; padding: 0 18px 48px; }
+    .dossier { background: var(--paper); border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); }
+    .dossier-head { background: var(--navy); color: #fff; padding: 34px 30px 28px; position: relative; }
+    .dossier-eyebrow { margin: 0 0 12px; font-family: JetBrains Mono, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #F0C27B; }
+    .dossier-name { margin: 0; font-family: Space Grotesk, sans-serif; font-size: 32px; line-height: 1.05; }
+    .dossier-uni { margin: 6px 0 0; font-size: 15px; color: rgba(247,245,239,0.85); }
+    .dossier-close { position: absolute; top: 24px; right: 24px; width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(255,255,255,0.12); color: #fff; font-size: 18px; cursor: pointer; }
+    .dossier-body { padding: 28px 30px 34px; display: grid; gap: 22px; }
+    .dossier-shortlist-box { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+    .dossier-shortlist-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .mono { font-family: JetBrains Mono, monospace; color: var(--ink-soft); font-size: 12px; }
+    .shortlist-btn { padding: 10px 16px; border: none; border-radius: 12px; cursor: pointer; background: var(--amber); color: var(--navy); font-weight: 700; transition: transform 0.15s ease; }
+    .shortlist-btn:hover { transform: translateY(-1px); background: var(--amber-dark); }
+    .companies-list { font-size: 13px; color: var(--ink-soft); }
+    .field-group { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
+    .field-group h3 { margin: 0 0 16px; font-family: JetBrains Mono, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+    .contact-rows { display: grid; gap: 12px; }
+    .contact-row { display: flex; gap: 12px; flex-wrap: wrap; font-size: 14px; }
+    .contact-row .k { color: var(--ink-soft); min-width: 140px; flex: 0 0 auto; }
+    .contact-row .v { font-weight: 600; word-break: break-word; }
+    .link-buttons { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .link-btn { display: inline-flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-radius: 12px; background: var(--navy); color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; }
+    .link-btn .arrow { margin-left: 8px; font-family: JetBrains Mono, monospace; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag-chip { display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .focus-chip { background: rgba(47,168,154,0.12); color: #1E6E63; }
+    .insight-chip { background: rgba(232,163,61,0.15); color: #8A6415; }
+    .summary-text { margin: 0; font-size: 15px; line-height: 1.7; color: var(--ink); }
+    .highlight-list { display: grid; gap: 12px; }
+    .highlight-item { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+    .highlight-icon { font-size: 18px; line-height: 1.2; flex: 0 0 auto; }
+    .highlight-text { font-size: 14px; line-height: 1.6; }
+    .skill-groups { display: grid; gap: 14px; }
+    .skill-group-label { display: block; margin-bottom: 10px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill-chip { display: inline-flex; padding: 7px 11px; border-radius: 999px; background: var(--paper-dim); color: var(--ink); font-size: 13px; }
+    .experience-list { margin: 0; padding-left: 20px; display: grid; gap: 10px; }
+    .experience-list li { font-size: 14px; line-height: 1.75; }
+    @media (max-width: 760px) {
+      .dossier-body { padding: 24px 18px 28px; }
+      .contact-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="dossier">
+      <div class="dossier-head">
+        <button class="dossier-close" aria-label="Close">✕</button>
+        <p class="dossier-eyebrow">Candidate Dossier</p>
+        <p class="dossier-name">Avishi Agrawal</p>
+        <p class="dossier-uni">IIIT Dharwad — B.Tech, Class of 2027</p>
+      </div>
+      <div class="dossier-body">
+
+        <div class="dossier-shortlist-box">
+          <div class="dossier-shortlist-top">
+            <span class="mono">Not shortlisted yet</span>
+          </div>
+          <button class="shortlist-btn">Shortlist</button>
+        </div>
+
+        <div class="field-group">
+          <h3>Contact & Details</h3>
+          <div class="contact-rows">
+            <div class="contact-row"><span class="k">Email</span><span class="v">avishiagrawal0309@gmail.com</span></div>
+            <div class="contact-row"><span class="k">Phone</span><span class="v">+91 91734 032148</span></div>
+            <div class="contact-row"><span class="k">Location</span><span class="v">Jaipur</span></div>
+            <div class="contact-row"><span class="k">AI persona</span><span class="v">Vibecoder</span></div>
+            <div class="contact-row"><span class="k">Focus areas</span><span class="v">AI / ML / LLM systems, Operations / Growth / Marketing</span></div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h3>Links</h3>
+          <div class="link-buttons">
+            <a class="link-btn" href="https://www.linkedin.com/in/avishi-agrawal-abb539316/" target="_blank" rel="noopener noreferrer">LinkedIn <span class="arrow">↗</span></a>
+            <a class="link-btn" href="https://github.com/Avishi03" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow">↗</span></a>
+            <a class="link-btn" href="https://avishi-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer">Portfolio <span class="arrow">↗</span></a>
+            <a class="link-btn" href="https://drive.google.com/file/d/1riH8tCYfPuPJS89Q7n7e02RCJ87CMlQo/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume <span class="arrow">↗</span></a>
+            <a class="link-btn" href="https://youtu.be/hcddBBvAoyg?si=GOMos8rCHxDoCJ2b" target="_blank" rel="noopener noreferrer">Intro Video <span class="arrow">↗</span></a>
+            <a class="link-btn" href="https://bharat-nivesh.vercel.app/" target="_blank" rel="noopener noreferrer">Project Demo <span class="arrow">↗</span></a>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h3>Validation Insights</h3>
+          <div class="tag-row">
+            <span class="tag-chip insight-chip">A bug caused UI freezes while streaming multi-agent AI responses in real time.</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h3>Professional Summary</h3>
+          <p class="summary-text">Avishi is a B.Tech student at IIIT Dharwad graduating in 2027, focused on AI/ML systems and production-grade model orchestration. They led the national-winning DRISHTI multi-agent AI system, built a modular investment workflow pipeline, and engineered real-time streaming and routing logic for complex agent handoffs. Their profile blends deep technical systems work, scalable deployment, and a product mindset for real-world AI experiences.</p>
+          <div class="tag-row" style="margin-top: 12px;">
+            <span class="tag-chip focus-chip">AI / ML / LLM systems</span>
+            <span class="tag-chip focus-chip">Operations / Growth / Marketing</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h3>Key Highlights</h3>
+          <div class="highlight-list">
+            <div class="highlight-item"><span class="highlight-icon">🏆</span><span class="highlight-text">National winner of the ET GenAI Hackathon for DRISHTI, a multi-agent AI solution.</span></div>
+            <div class="highlight-item"><span class="highlight-icon">🤖</span><span class="highlight-text">Built a modular multi-agent orchestration layer that routes tasks across specialized AI agents.</span></div>
+            <div class="highlight-item"><span class="highlight-icon">⚡</span><span class="highlight-text">Designed dynamic model routing and fallback chains to reduce inference cost by roughly 85%.</span></div>
+            <div class="highlight-item"><span class="highlight-icon">📡</span><span class="highlight-text">Solved a production SSE streaming bug in a real-time multi-agent pipeline by fixing event boundary handling.</span></div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h3>Technical Skills</h3>
+          <div class="skill-groups">
+            <div>
+              <span class="skill-group-label">Programming Languages</span>
+              <div class="skill-chips"><span class="skill-chip">Python</span><span class="skill-chip">TypeScript</span><span class="skill-chip">Go</span><span class="skill-chip">C/C++</span><span class="skill-chip">SQL</span><span class="skill-chip">Solidity</span></div>
+            </div>
+            <div>
+              <span class="skill-group-label">AI / ML</span>
+              <div class="skill-chips"><span class="skill-chip">PyTorch</span><span class="skill-chip">Transformers</span><span class="skill-chip">BERT</span><span class="skill-chip">GPT</span><span class="skill-chip">ECAPA-TDNN</span><span class="skill-chip">Conformer ASR</span><span class="skill-chip">NVIDIA NeMo</span><span class="skill-chip">Weights & Biases</span><span class="skill-chip">Claude API</span><span class="skill-chip">Groq</span></div>
+            </div>
+            <div>
+              <span class="skill-group-label">Frameworks & Runtime</span>
+              <div class="skill-chips"><span class="skill-chip">FastAPI</span><span class="skill-chip">Next.js</span></div>
+            </div>
+            <div>
+              <span class="skill-group-label">Databases</span>
+              <div class="skill-chips"><span class="skill-chip">PostgreSQL</span><span class="skill-chip">Redis</span></div>
+            </div>
+            <div>
+              <span class="skill-group-label">Cloud / Infrastructure</span>
+              <div class="skill-chips"><span class="skill-chip">AWS S3/SQS/ECS/CloudFront</span><span class="skill-chip">Kafka</span><span class="skill-chip">Docker</span><span class="skill-chip">GitHub Actions</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h3>Experience Summary</h3>
+          <ul class="experience-list">
+            <li>Led DRISHTI, a modular multi-agent AI product, to win the national ET GenAI Hackathon with a production-first implementation.</li>
+            <li>Designed agent orchestration, intent routing, and validation flows so that the system could choose the right model for each task.</li>
+            <li>Self-taught multi-agent architecture, LangChain/AutoGen concepts, SSE streaming, and real-time pipeline debugging under tight timelines.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
